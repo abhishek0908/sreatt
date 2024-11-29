@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';  // Import the Link component
 import logo from '../images/logo1.jpeg';  // Import the logo image
 
 const Header = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to toggle the mobile menu
+
+  // Function to toggle the mobile menu visibility
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <header className="bg-gradient-to-r from-gray-600 via-gray-400 to-gray-300 shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,7 +27,7 @@ const Header = () => {
           </div>
 
           {/* Navigation Links */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className={`hidden md:flex space-x-8 ${isMobileMenuOpen ? 'block' : ''}`}>
             <Link
               to="/"  // Specific path for Home
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
@@ -36,7 +43,7 @@ const Header = () => {
             </Link>
 
             <Link
-              to="/services"  // Specific path for Services
+              to="/services"  // Specific path for Products
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
             >
               Products
@@ -63,6 +70,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
+              onClick={toggleMobileMenu}  // Toggle the menu on click
               className="text-white hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
             >
               <svg
@@ -82,6 +90,53 @@ const Header = () => {
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute left-0 right-0 top-20 bg-gradient-to-r from-gray-600 via-gray-400 to-gray-300 p-4">
+            <div className="flex flex-col items-center space-y-4">
+              <Link
+                to="/"
+                className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
+                onClick={() => setIsMobileMenuOpen(false)} // Close the menu after clicking a link
+              >
+                Home
+              </Link>
+
+              <Link
+                to="/about"
+                className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </Link>
+
+              <Link
+                to="/services"
+                className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Products
+              </Link>
+
+              <Link
+                to="/contact"
+                className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </Link>
+
+              <Link
+                to="#get-started"
+                className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Get Started
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
