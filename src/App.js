@@ -8,10 +8,12 @@ import HomePage from './components/Home';
 import DistributorRegistration from './components/DistributorRegistationForm';
 import Footer from './components/Footer';
 import ContactUs from './components/ContactUs';
+import Banner from './components/Banner';
 function App() {
   return (
     <Router>  {/* Wrap your app in Router */}
       <div className="App">
+        <Banner/>
         <Header /> {/* This is your Header component with navigation links */}
         <Routes>
           {/* Define routes for your pages */}
