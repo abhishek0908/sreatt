@@ -70,7 +70,7 @@ const AboutPage = () => {
     {/* WhatsApp */}
     <div className="flex items-center justify-center">
       <a
-            href="https://wa.me/9302050250"
+            href="https://wa.me/+91 9302050250"
             target="_blank"
         rel="noopener noreferrer"
         className="text-3xl text-green-500 hover:text-green-400 transition-transform transform hover:scale-110 duration-300"
