@@ -55,13 +55,56 @@ const AboutPage = () => {
         </section>
 
         {/* Commitment Section */}
-        <section>
+        <section className="mb-8">
           <h2 className="text-3xl font-semibold text-gray-100">Our Commitment</h2>
           <p className="mt-4 text-lg text-gray-100">
             At Sreatt, we're more than just a supplier. We're a partner you can rely on for all your power and
             protection needs. We are committed to continuous innovation to meet the evolving demands of our customers.
           </p>
         </section>
+
+      {/* Contact Details Section */}
+<section className="flex flex-col items-center text-center">
+  <h2 className="text-3xl font-semibold text-gray-100 mb-6">Contact Information</h2>
+  <div className="space-y-6">
+    {/* WhatsApp */}
+    <div className="flex items-center justify-center">
+      <a
+            href="https://wa.me/9302050250"
+            target="_blank"
+        rel="noopener noreferrer"
+        className="text-3xl text-green-500 hover:text-green-400 transition-transform transform hover:scale-110 duration-300"
+        aria-label="WhatsApp"
+      >
+        <i className="fa-brands fa-whatsapp"></i>
+      </a>
+      <span className="ml-4 text-lg text-gray-100">+91 9302050250</span>
+    </div>
+
+    {/* Email */}
+    <div className="flex items-center justify-center">
+      <a
+        href="mailto:info@sreatt.com"
+        className="text-3xl text-blue-500 hover:text-blue-400 transition-transform transform hover:scale-110 duration-300"
+        aria-label="Email"
+      >
+        <i className="fas fa-envelope"></i>
+      </a>
+      <span className="ml-4 text-lg text-gray-100">info@sreatt.com</span>
+    </div>
+
+    {/* Address
+    <div className="flex items-start justify-center">
+      <div className="text-3xl text-gray-500">
+        <i className="fas fa-map-marker-alt"></i>
+      </div>
+      <span className="ml-4 text-lg text-gray-100">
+        123 Main Street, City, Country
+      </span>
+    </div> */}
+  </div>
+</section>
+
       </div>
     </div>
   );
