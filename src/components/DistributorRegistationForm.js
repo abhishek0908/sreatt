@@ -1,26 +1,29 @@
 import React, { useState } from "react";
-import { UserRoles } from "../utility/constants";
+import ShimmerLoader from './ShimmerLoader';  // Import the ShimmerLoader component
 
 const DistributorRegistration = () => {
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState(null);
+  const [loading, setLoading] = useState(false);  // State for loader visibility
 
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+  console.log(`API BASE URL${API_BASE_URL}`)
   console.log(API_BASE_URL)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);  // Show loader when the form is submitted
 
     const formData = {
-      first_name: e.target.first_name.value,
-      last_name: e.target.last_name.value,
+      firstName: e.target.firstName.value,
+      lastName: e.target.lastName.value,
       email: e.target.email.value,
-      password: e.target.password.value,
       phoneNumber: e.target.phoneNumber.value,
-      role: UserRoles.DISTRIBUTOR,
+      address: e.target.address.value,
     };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}`, {
+      const response = await fetch(`${API_BASE_URL}/api/distributor/apply`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,12 +33,10 @@ const DistributorRegistration = () => {
 
       const result = await response.json();
 
-
       if (response.ok) {
         setMessage("Registration Successful!");
         setMessageType("success");
       } else {
-        // Display the exact error message from the backend
         setMessage(result.details[0].message || "Something went wrong.");
         setMessageType("error");
       }
@@ -43,6 +44,8 @@ const DistributorRegistration = () => {
       console.error("Error:", error);
       setMessage("An error occurred while submitting the form.");
       setMessageType("error");
+    } finally {
+      setLoading(false);  // Hide loader once the response is received
     }
   };
 
@@ -62,12 +65,10 @@ const DistributorRegistration = () => {
         >
           {/* First Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">
-              First Name
-            </label>
+            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">First Name</label>
             <input
               type="text"
-              name="first_name"
+              name="firstName"
               placeholder="Enter your first name"
               className="w-full px-4 py-2 mt-1 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-base"
               required
@@ -76,23 +77,19 @@ const DistributorRegistration = () => {
 
           {/* Last Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">
-              Last Name
-            </label>
+            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">Last Name</label>
             <input
               type="text"
-              name="last_name"
+              name="lastName"
               placeholder="Enter your last name"
               className="w-full px-4 py-2 mt-1 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-base"
               required
             />
           </div>
 
-          {/* Email */}
+          {/* Email Address */}
           <div>
-            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">
-              Email Address
-            </label>
+            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">Email Address</label>
             <input
               type="email"
               name="email"
@@ -102,13 +99,9 @@ const DistributorRegistration = () => {
             />
           </div>
 
-         
-
           {/* Phone Number */}
           <div>
-            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">
-              Phone Number
-            </label>
+            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">Phone Number</label>
             <input
               type="tel"
               name="phoneNumber"
@@ -117,19 +110,19 @@ const DistributorRegistration = () => {
               required
             />
           </div>
- {/* Password */}
- <div>
-            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">
-              Password
-            </label>
+
+          {/* Address */}
+          <div>
+            <label className="block text-sm font-medium text-gray-100 sm:text-base md:text-lg">Address</label>
             <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
+              type="text"
+              name="address"
+              placeholder="Enter your address"
               className="w-full px-4 py-2 mt-1 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-base"
               required
             />
           </div>
+
           {/* Submit Button */}
           <div>
             <button
@@ -140,6 +133,13 @@ const DistributorRegistration = () => {
             </button>
           </div>
         </form>
+
+        {/* Loader */}
+        {loading && (
+          <div className="absolute inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-10">
+            <ShimmerLoader /> {/* Display shimmer loader */}
+          </div>
+        )}
 
         {/* Display Messages */}
         {message && (
