@@ -5,6 +5,8 @@ import UnderConstruction from './components/UnderContruction';
 import Header from './components/Header';
 import AboutPage from './components/About';
 import HomePage from './components/Home';
+import DistributorRegistration from './components/DistributorRegistationForm';
+import Footer from './components/Footer';
 function App() {
   return (
     <Router>  {/* Wrap your app in Router */}
@@ -16,8 +18,10 @@ function App() {
           <Route path="/about" element={<AboutPage />} /> {/* Example route */}
           <Route path="/services" element={<UnderConstruction />} /> {/* Example route */}
           <Route path="/contact" element={<UnderConstruction />} /> {/* Example route */}
+          <Route path="/distributor" element={<DistributorRegistration />} /> {/* Example route */}
           {/* Add more routes here if needed */}
         </Routes>
+        <Footer/>
       </div>
     </Router>
   );

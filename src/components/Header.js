@@ -60,11 +60,11 @@ const Header = () => {
           {/* Button */}
           <div className="hidden md:block">
             <Link
-              to="#get-started"  // Use `to` instead of `href`
+              to="/distributor"  // Use `to` instead of `href`
               className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
             >
-              Get Started
-            </Link>
+                Be a Distributor
+                </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -128,11 +128,11 @@ const Header = () => {
               </Link>
 
               <Link
-                to="#get-started"
+                to="/distributor"
                 className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Get Started
+                Be a Distributor
               </Link>
             </div>
           </div>
