@@ -10,7 +10,7 @@ module.exports = {
       },
       keyframes: {
         marquee: {
-          '0%': { transform: 'translateX(100%)' },  // Start from the right
+          '0%': { transform: 'translateX(50%)' },  // Start from the center (50% of width)
           '100%': { transform: 'translateX(-100%)' }, // End at the left
         },
       },
