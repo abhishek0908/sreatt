@@ -82,7 +82,7 @@ const ContactUs = () => {
         <div className="flex justify-center space-x-6 mt-6">
           {/* WhatsApp Link */}
           <a
-            href="https://wa.me/+91 9302050250"
+            href="https://wa.me/+919302050250"
             target="_blank"
             rel="noopener noreferrer"
             className="text-4xl text-green-500 hover:text-green-400 transition-transform transform hover:scale-110 duration-300"
