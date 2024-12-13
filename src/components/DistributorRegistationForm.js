@@ -6,7 +6,7 @@ const DistributorRegistration = () => {
   const [messageType, setMessageType] = useState(null);
   const [loading, setLoading] = useState(false);  // State for loader visibility
 
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://sreatt-backend.vercel.app/";
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://sreatt-backend.vercel.app";
   console.log(`API BASE URL${API_BASE_URL}`)
   console.log(API_BASE_URL)
 
