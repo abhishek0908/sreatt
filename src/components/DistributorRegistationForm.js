@@ -124,22 +124,22 @@ const DistributorRegistration = () => {
           </div>
 
           {/* Submit Button */}
-          <div>
+          <div className="relative">
             <button
               type="submit"
-              className="bg-green-500 text-white py-2 px-4 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300 sm:py-3 sm:px-6"
+              className="bg-green-500 text-white py-2 px-4 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300 sm:py-3 sm:px-6 w-full"
             >
               Register
             </button>
+
+            {/* Loader */}
+            {loading && (
+              <div className="absolute inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-10">
+                <ShimmerLoader /> {/* Display shimmer loader */}
+              </div>
+            )}
           </div>
         </form>
-
-        {/* Loader */}
-        {loading && (
-          <div className="absolute inset-0 flex justify-center items-center bg-gray-600 bg-opacity-50 z-10">
-            <ShimmerLoader /> {/* Display shimmer loader */}
-          </div>
-        )}
 
         {/* Display Messages */}
         {message && (
