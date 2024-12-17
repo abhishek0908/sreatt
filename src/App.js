@@ -21,7 +21,8 @@ function App() {
           <Route path="/about" element={<AboutPage />} /> {/* Example route */}
           <Route path="/services" element={<UnderConstruction />} /> {/* Example route */}
           <Route path="/contact" element={<ContactUs />} /> {/* Example route */}
-          <Route path="/distributor" element={<DistributorRegistration />} /> {/* Example route */}
+          <Route path="/distributor" element={<DistributorRegistration />} /> {/* Example route */}          
+          <Route path="/upload" element={<ProductUploadPage />} /> {/* Example route */}
           {/* Add more routes here if needed */}
         </Routes>
         <Footer/>
