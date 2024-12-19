@@ -13,6 +13,7 @@ import AdminPage from './components/Admin';
 import SignIn from './components/SignIn';
 import NotFoundPage from './components/NotFoundPage'; // Create this component for 404 handling
 import ProtectedRoute from './components/ProtectedRoute'; // Optional: Create this for secure routes
+import DistributorPage from './components/DistributorPage';
 
 function App() {
   return (
@@ -25,9 +26,12 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<UnderConstruction />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/distributor" element={<DistributorRegistration />} />
+          <Route path="/register" element={<DistributorRegistration />} />
           <Route path="/admin" element={
             <ProtectedRoute role="admin" element={<AdminPage />} />
+          } /> {/* Secure Admin Route */}
+          <Route path="/distributor" element={
+            <ProtectedRoute role="distributor" element={<DistributorPage/>} />
           } /> {/* Secure Admin Route */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="*" element={<NotFoundPage />} /> {/* 404 Fallback */}

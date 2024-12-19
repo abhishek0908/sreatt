@@ -106,7 +106,7 @@ const Header = () => {
             {/* Render "Be a Distributor" button only if the user is not authenticated */}
             {!isAuthenticated && (
               <Link
-                to="/distributor"
+                to="/register"
                 className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
               >
                 Be a Distributor
@@ -192,7 +192,7 @@ const Header = () => {
               {/* Render "Be a Distributor" only if the user is not authenticated */}
               {!isAuthenticated && (
                 <Link
-                  to="/distributor"
+                  to="/register"
                   className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
