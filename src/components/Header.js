@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';  // Import the Link component
-import logo from '../images/logo1.jpeg';  // Import the logo image
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';  
+import logo from '../images/logo1.jpeg';
 
 const Header = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to toggle the mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate(); // For navigation after logout
+
+  // Check authentication status on initial render and whenever the component re-renders
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);  // If token exists, user is authenticated
+  }, []);  // Empty dependency array ensures this effect runs once when the component mounts
 
   // Function to toggle the mobile menu visibility
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  // Function to handle logout and redirect to SignIn page
+  const handleLogout = () => {
+    localStorage.removeItem('token');  // Clear token from localStorage
+    setIsAuthenticated(false);  // Update authentication state
+    navigate('/signin');  // Redirect to the Sign-In page
   };
 
   return (
@@ -19,7 +34,7 @@ const Header = () => {
             <img 
               src={logo} 
               alt="Logo" 
-              className="h-16 w-16 rounded-full mr-3"  // Adjusted size and rounded
+              className="h-16 w-16 rounded-full mr-3"
             />
             <span className="text-white text-3xl font-extrabold tracking-wide text-shadow-md">
               Sreatt
@@ -29,48 +44,60 @@ const Header = () => {
           {/* Navigation Links */}
           <nav className={`hidden md:flex space-x-8 ${isMobileMenuOpen ? 'block' : ''}`}>
             <Link
-              to="/"  // Specific path for Home
+              to="/"
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
             >
               Home
             </Link>
-
             <Link
-              to="/about"  // Specific path for About
+              to="/about"
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
             >
               About
             </Link>
-
             <Link
-              to="/services"  // Specific path for Products
+              to="/services"
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
             >
               Products
             </Link>
-
             <Link
-              to="/contact"  // Specific path for Contact
+              to="/contact"
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
             >
               Contact
             </Link>
           </nav>
 
-          {/* Button */}
-          <div className="hidden md:block">
+          {/* Buttons */}
+          <div className="hidden md:flex space-x-4">
+            {isAuthenticated ? (
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-red-600 transform hover:scale-105 transition duration-300"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/signin"
+                className="bg-blue-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-blue-600 transform hover:scale-105 transition duration-300"
+              >
+                Sign In
+              </Link>
+            )}
             <Link
-              to="/distributor"  // Use `to` instead of `href`
+              to="/distributor"
               className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
             >
-                Be a Distributor
-                </Link>
+              Be a Distributor
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
-              onClick={toggleMobileMenu}  // Toggle the menu on click
+              onClick={toggleMobileMenu}
               className="text-white hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
             >
               <svg
@@ -98,11 +125,10 @@ const Header = () => {
               <Link
                 to="/"
                 className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
-                onClick={() => setIsMobileMenuOpen(false)} // Close the menu after clicking a link
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Home
               </Link>
-
               <Link
                 to="/about"
                 className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
@@ -110,7 +136,6 @@ const Header = () => {
               >
                 About
               </Link>
-
               <Link
                 to="/services"
                 className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
@@ -118,7 +143,6 @@ const Header = () => {
               >
                 Products
               </Link>
-
               <Link
                 to="/contact"
                 className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
@@ -126,7 +150,25 @@ const Header = () => {
               >
                 Contact
               </Link>
-
+              {isAuthenticated ? (
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="bg-red-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-red-600 transform hover:scale-105 transition duration-300"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to="/signin"
+                  className="bg-blue-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-blue-600 transform hover:scale-105 transition duration-300"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
+              )}
               <Link
                 to="/distributor"
                 className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"

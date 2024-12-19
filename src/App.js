@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  // Import Router, Routes, and Route
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import UnderConstruction from './components/UnderContruction';
 import Header from './components/Header';
@@ -9,23 +9,31 @@ import DistributorRegistration from './components/DistributorRegistationForm';
 import Footer from './components/Footer';
 import ContactUs from './components/ContactUs';
 import Banner from './components/Banner';
+import AdminPage from './components/Admin';
+import SignIn from './components/SignIn';
+import NotFoundPage from './components/NotFoundPage'; // Create this component for 404 handling
+import ProtectedRoute from './components/ProtectedRoute'; // Optional: Create this for secure routes
+
 function App() {
   return (
-    <Router>  {/* Wrap your app in Router */}
+    <Router>
       <div className="App">
-        <Banner/>
-        <Header /> {/* This is your Header component with navigation links */}
+        <Banner />
+        <Header />
         <Routes>
-          {/* Define routes for your pages */}
-          <Route path="/" element={<HomePage />} /> {/* Default route */}
-          <Route path="/about" element={<AboutPage />} /> {/* Example route */}
-          <Route path="/services" element={<UnderConstruction />} /> {/* Example route */}
-          <Route path="/contact" element={<ContactUs />} /> {/* Example route */}
-          <Route path="/distributor" element={<DistributorRegistration />} /> {/* Example route */}          
-          {/* <Route path="/upload" element={<ProductUploadPage />} /> Example route */}
-          {/* Add more routes here if needed */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<UnderConstruction />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/distributor" element={<DistributorRegistration />} />
+          <Route path="/admin" element={
+            <ProtectedRoute role="admin" element={<AdminPage />} />
+          } /> {/* Secure Admin Route */}
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="*" element={<NotFoundPage />} /> {/* 404 Fallback */}
+          
         </Routes>
-        <Footer/>
+        <Footer />
       </div>
     </Router>
   );
