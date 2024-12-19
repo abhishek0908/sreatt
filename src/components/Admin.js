@@ -16,7 +16,7 @@ const AdminPage = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:8000/api/distributor/all', {
+        const response = await axios.get('https://sreatt-backend.vercel.app/api/distributor/all', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
