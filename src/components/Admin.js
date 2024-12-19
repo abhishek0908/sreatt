@@ -40,7 +40,7 @@ const AdminPage = () => {
       {error && <p className="text-lg text-red-500">{error}</p>}
 
       {!loading && !error && distributors.length > 0 && (
-        <div className="w-full max-w-4xl overflow-hidden bg-gray-700 rounded-lg shadow-lg">
+        <div className="w-full max-w-4xl overflow-x-auto bg-gray-700 rounded-lg shadow-lg">
           <table className="w-full text-left text-gray-200">
             <thead>
               <tr className="bg-gray-800">
@@ -49,6 +49,7 @@ const AdminPage = () => {
                 <th className="px-4 py-2">Email</th>
                 <th className="px-4 py-2">Phone Number</th>
                 <th className="px-4 py-2">Address</th>
+                <th className="px-4 py-2">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -57,11 +58,24 @@ const AdminPage = () => {
                   key={distributor._id}
                   className={index % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
                 >
-                  <td className="px-4 py-2">{index + 1}</td>
+                  <td className="px-4 py-2 text-center">{index + 1}</td>
                   <td className="px-4 py-2">{`${distributor.firstName} ${distributor.lastName}`}</td>
                   <td className="px-4 py-2">{distributor.email}</td>
                   <td className="px-4 py-2">{distributor.phoneNumber}</td>
                   <td className="px-4 py-2">{distributor.address}</td>
+                  <td className="px-4 py-2 text-center">
+                    <span
+                      className={`px-4 py-2 rounded-full ${
+                        distributor.distributorStatus === 'pending'
+                          ? 'bg-yellow-500 text-black'
+                          : distributor.distributorStatus === 'approved'
+                          ? 'bg-green-500 text-white'
+                          : 'bg-red-500 text-white'
+                      }`}
+                    >
+                      {distributor.distributorStatus}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>

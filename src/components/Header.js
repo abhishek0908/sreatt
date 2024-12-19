@@ -5,13 +5,28 @@ import logo from '../images/logo1.jpeg';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate(); // For navigation after logout
+  const [userRole, setUserRole] = useState(null);  // Store the user role
+  const navigate = useNavigate(); // For navigation after logout or role-based redirection
 
-  // Check authentication status on initial render and whenever the component re-renders
+  // Check authentication status and user role on initial render and whenever the component re-renders
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');  // Assuming role is stored in localStorage
+
     setIsAuthenticated(!!token);  // If token exists, user is authenticated
-  }, []);  // Empty dependency array ensures this effect runs once when the component mounts
+    setUserRole(role);  // Set the user role from localStorage
+
+    // Redirect if the user is already signed in and tries to go to the /signin page
+    if (token && role) {
+      if (window.location.pathname === '/signin') {
+        if (role === 'admin') {
+          navigate('/admin');  // Redirect to admin page if the role is admin
+        } else if (role === 'distributor') {
+          navigate('/distributor');  // Redirect to distributor page if the role is distributor
+        }
+      }
+    }
+  }, [navigate]);  // Empty dependency array ensures this effect runs once when the component mounts
 
   // Function to toggle the mobile menu visibility
   const toggleMobileMenu = () => {
@@ -21,7 +36,9 @@ const Header = () => {
   // Function to handle logout and redirect to SignIn page
   const handleLogout = () => {
     localStorage.removeItem('token');  // Clear token from localStorage
+    localStorage.removeItem('role');  // Clear role from localStorage
     setIsAuthenticated(false);  // Update authentication state
+    setUserRole(null);  // Clear user role
     navigate('/signin');  // Redirect to the Sign-In page
   };
 
@@ -86,12 +103,15 @@ const Header = () => {
                 Sign In
               </Link>
             )}
-            <Link
-              to="/distributor"
-              className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
-            >
-              Be a Distributor
-            </Link>
+            {/* Render "Be a Distributor" button only if the user is not authenticated */}
+            {!isAuthenticated && (
+              <Link
+                to="/distributor"
+                className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
+              >
+                Be a Distributor
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -169,13 +189,16 @@ const Header = () => {
                   Sign In
                 </Link>
               )}
-              <Link
-                to="/distributor"
-                className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Be a Distributor
-              </Link>
+              {/* Render "Be a Distributor" only if the user is not authenticated */}
+              {!isAuthenticated && (
+                <Link
+                  to="/distributor"
+                  className="bg-green-500 text-white py-2 px-6 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Be a Distributor
+                </Link>
+              )}
             </div>
           </div>
         )}
