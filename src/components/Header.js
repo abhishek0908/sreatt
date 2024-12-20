@@ -169,6 +169,13 @@ const Header = () => {
               >
                 Products
               </Link>
+            <Link
+                to="/warranty"
+                className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Warranty
+              </Link>
               <Link
                 to="/contact"
                 className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"

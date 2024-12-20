@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 const WarrantyPage = () => {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-b from-gray-600 via-gray-500 to-gray-300 text-white font-sans">
-      <div className="text-center p-8 space-y-8 max-w-3xl mx-auto">
+      <div className="text-center p-6 sm:p-8 space-y-6 sm:space-y-8 max-w-3xl mx-auto">
         {/* Header */}
-        <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-gray-400 to-gray-100 animate__animated animate__fadeIn animate__delay-1s sm:text-4xl md:text-5xl">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-gray-400 to-gray-100 animate__animated animate__fadeIn animate__delay-1s">
           Warranty Services 🛠️
         </h1>
 
         {/* Description */}
-        <p className="text-sm font-medium text-gray-200 animate__animated animate__fadeIn animate__delay-1.5s sm:text-base md:text-lg">
+        <p className="text-sm sm:text-base md:text-lg font-medium text-gray-200 animate__animated animate__fadeIn animate__delay-1.5s">
           Register your product warranty and access your warranty details easily. We've got you covered!
         </p>
 
         {/* Buttons */}
-        <div className="mt-8 flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6">
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
           <Link
             to="/register-warranty"
             className="bg-gray-700 text-white py-2 px-4 rounded-full font-semibold shadow-md hover:bg-gray-800 transform hover:scale-105 transition duration-300 sm:py-3 sm:px-6"
@@ -31,8 +31,20 @@ const WarrantyPage = () => {
           </Link>
         </div>
 
+        {/* Microsoft Form Embedding */}
+        <div className="mt-8 sm:mt-12 w-full px-4">
+          <iframe 
+            src="https://forms.office.com/pages/responsepage.aspx?id=7FVSfnsON0mO3-rZMjo6242kEd7s8fVBmJ5wdQnlBH5UQlpLN0ZRUTlFWjdFNjNBRVlMR0wwVVZITS4u&origin=lprLink&route=shorturl"
+            width="100%" 
+            height="500" 
+            frameBorder="0" 
+            style={{ border: 'none', borderRadius: '10px' }}
+            title="Warranty Registration Form"
+          ></iframe>
+        </div>
+
         {/* Warranty Illustration */}
-        <div className="mt-12 relative flex justify-center items-center">
+        <div className="mt-8 sm:mt-12 relative flex justify-center items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
