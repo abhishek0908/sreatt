@@ -10,6 +10,7 @@ const ViewWarranty = () => {
   const [warrantyData, setWarrantyData] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false); // State for loading button
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -22,6 +23,13 @@ const ViewWarranty = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Ensure either email or serial is filled (but not both empty)
+    if (!formData.email && !formData.serial) {
+      setErrorMessage('Please provide either your registered phone number or serial number.');
+      return;
+    }
+
+    setLoading(true); // Set loading to true when submitting
     const queryParam = formData.serial
       ? `serialNumber=${formData.serial}`
       : `phoneNumber=${formData.email}`;
@@ -44,6 +52,8 @@ const ViewWarranty = () => {
     } catch (error) {
       setErrorMessage('Error: Could not connect to the server.');
       setWarrantyData(null);
+    } finally {
+      setLoading(false); // Set loading to false after submitting
     }
   };
 
@@ -64,7 +74,7 @@ const ViewWarranty = () => {
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg text-gray-800 space-y-6 w-full max-w-md mx-auto">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Registered Phone Number
+              Registered Phone Number (Optional)
             </label>
             <input
               type="tel"
@@ -77,7 +87,7 @@ const ViewWarranty = () => {
           </div>
           <div>
             <label htmlFor="serial" className="block text-sm font-medium text-gray-700">
-              Serial Number
+              Serial Number (Optional)
             </label>
             <input
               type="text"
@@ -88,18 +98,23 @@ const ViewWarranty = () => {
               className="mt-1 block w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500"
             />
           </div>
+          {errorMessage && <div className="mt-4 p-4 bg-red-500 rounded-lg">{errorMessage}</div>}
           <button
             type="submit"
-            className="w-full bg-gray-600 text-white py-2 px-4 rounded-full font-semibold shadow-md hover:bg-gray-700 transition duration-300"
+            className={`w-full py-2 px-4 rounded-full font-semibold shadow-md transition duration-300 ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-600 text-white hover:bg-gray-700'}`}
+            disabled={loading}
           >
-            Search
+            {loading ? 'Submitting...' : 'Search'}
           </button>
         </form>
 
         {/* Display Result */}
-        {errorMessage && <div className="mt-4 p-4 bg-red-500 rounded-lg">{errorMessage}</div>}
-
-        <Modal isOpen={isModalOpen} onRequestClose={closeModal} className="bg-gradient-to-b from-gray-600 via-gray-500 to-gray-300 p-8 rounded-lg shadow-lg max-w-md mx-auto mt-20" overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          className="bg-gradient-to-b from-gray-600 via-gray-500 to-gray-300 p-8 rounded-lg shadow-lg max-w-md mx-auto mt-20"
+          overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+        >
           {warrantyData && (
             <div className="text-white">
               <h2 className="text-2xl font-bold mb-4">Warranty Details</h2>
@@ -113,7 +128,10 @@ const ViewWarranty = () => {
                 <p><strong>Serial Number:</strong> {warrantyData.data.BatterySerialNumber}</p>
                 <p><strong>Date of Purchase:</strong> {new Date(warrantyData.data.dateOfPurchase).toLocaleDateString()}</p>
               </div>
-              <button onClick={closeModal} className="mt-6 bg-red-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-red-600 transition duration-300">
+              <button
+                onClick={closeModal}
+                className="mt-6 bg-red-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-red-600 transition duration-300"
+              >
                 Close
               </button>
             </div>
