@@ -1,27 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom'; // Importing Link for navigation
-import { FaCar, FaCarBattery } from 'react-icons/fa'; // Importing specific icons
+import { Link } from 'react-router-dom'; 
+import { FaCar, FaCarBattery } from 'react-icons/fa';
 
 const HomePage = () => {
-  const [isZoomed, setIsZoomed] = useState(false); // State to handle zoom effect
-  const imageRef = useRef(null); // Reference to the image element
+  const [isZoomed, setIsZoomed] = useState(false); 
+  const [isLoading, setIsLoading] = useState(true); // Track image loading state
+  const imageRef = useRef(null);
 
   const handleImageClick = (e) => {
-    e.stopPropagation(); // Prevent the event from propagating to the document
-    setIsZoomed(!isZoomed); // Toggle the zoom state when the image is clicked
+    e.stopPropagation(); 
+    setIsZoomed(!isZoomed); 
+  };
+
+  const handleImageLoad = () => {
+    setIsLoading(false); // Set loading to false once image has loaded
   };
 
   useEffect(() => {
-    // Handle clicks outside the image to reset zoom
     const handleClickOutside = (e) => {
       if (imageRef.current && !imageRef.current.contains(e.target)) {
-        setIsZoomed(false); // Reset zoom if click is outside the image
+        setIsZoomed(false); 
       }
     };
 
     document.addEventListener('click', handleClickOutside);
 
-    // Cleanup the event listener when the component unmounts
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
@@ -30,36 +33,39 @@ const HomePage = () => {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-b from-gray-600 via-gray-500 to-gray-300 text-white font-sans relative">
       <div className="text-center p-8 space-y-8 max-w-3xl mx-auto">
-        {/* Header with gradient theme */}
-        <h1 className="text-4xl font-extrabold text-shadow-md animate__animated animate__fadeIn animate__delay-1s sm:text-5xl md:text-6xl flex items-center justify-center space-x-2">
-  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-gray-400 to-gray-100">
-    Welcome to Sreatt
-  </span>
-  <span className="text-4xl sm:text-5xl md:text-6xl flex items-center space-x-2">
-    <FaCar className="text-red-500 text-5xl sm:text-6xl md:text-7xl" />  {/* Red color for car icon */}
-    <FaCarBattery className="text-green-500 text-5xl sm:text-6xl md:text-7xl" />  {/* Green color for battery icon */}
-  </span>
-</h1>
+        <h1 className="text-4xl font-extrabold text-shadow-md animate__animated animate__fadeIn animate__delay-0.3s sm:text-5xl md:text-6xl flex items-center justify-center space-x-2">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-gray-400 to-gray-100">
+            Welcome to Sreatt
+          </span>
+          <span className="text-4xl sm:text-5xl md:text-6xl flex items-center space-x-2">
+            <FaCar className="text-red-500 text-5xl sm:text-6xl md:text-7xl" />
+            <FaCarBattery className="text-green-500 text-5xl sm:text-6xl md:text-7xl" />
+          </span>
+        </h1>
 
-
-
-        {/* Description */}
         <p className="text-sm font-medium text-gray-300 animate__animated animate__fadeIn animate__delay-1.5s sm:text-base md:text-xl">
           High-performance batteries and premium lubricants for every need. Powering your engines and machines with precision.
         </p>
 
-        {/* Image Section (Replacing logo with our_products image) */}
         <div className="mt-8 w-full max-w-full h-auto">
+          {/* Shimmer effect */}
+          {isLoading && (
+            <div className="w-full h-auto bg-gray-300 animate-pulse rounded-xl shadow-xl">
+              {/* Shimmer placeholder can be adjusted as needed */}
+            </div>
+          )}
+
+          {/* Image with onLoad handler */}
           <img
-            src="/media/our_products.jpeg" // Path to the new image
+            src="/media/our_products.jpeg" 
             alt="Our Products"
-            ref={imageRef} // Assigning the ref to the image
-            className={`w-full h-auto object-contain rounded-xl shadow-xl transition-transform duration-300 ease-in-out ${isZoomed ? 'transform scale-125' : ''}`} // Zoom effect on click
-            onClick={handleImageClick} // Toggle zoom on click
+            ref={imageRef} 
+            className={`w-full h-auto object-contain rounded-xl shadow-xl transition-transform duration-300 ease-in-out ${isZoomed ? 'transform scale-125' : ''}`}
+            onClick={handleImageClick} 
+            onLoad={handleImageLoad} // Handle image load
           />
         </div>
 
-        {/* Green leaf accent */}
         <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,17 +78,15 @@ const HomePage = () => {
           </svg>
         </div>
 
-        {/* Call to Action */}
         <div className="mt-6">
           <Link
-            to="/products" // Link to Products page where customers can learn more
+            to="/products"
             className="bg-green-500 text-white py-2 px-4 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300 sm:py-3 sm:px-6"
           >
             Discover Our Products
           </Link>
         </div>
 
-        {/* Message */}
         <div className="mt-6 text-xs text-gray-100 animate__animated animate__fadeIn animate__delay-2s sm:text-sm md:text-lg">
           <p>Your trusted source for top-quality batteries and lubricants, designed to keep your machines running smoothly.</p>
         </div>

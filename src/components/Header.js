@@ -47,16 +47,20 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div className="flex items-center">
-            <img 
-              src={logo} 
-              alt="Logo" 
-              className="h-16 w-16 rounded-full mr-3"
-            />
-            <span className="text-white text-3xl font-extrabold tracking-wide text-shadow-md">
-              Sreatt
-            </span>
-          </div>
+         {/* Logo */}
+<div className="flex items-center">
+  <Link to="/">
+    <img 
+      src={logo} 
+      alt="Logo" 
+      className="h-16 w-16 rounded-full mr-3"
+    />
+  </Link>
+  <span className="text-white text-3xl font-extrabold tracking-wide text-shadow-md">
+    Sreatt
+  </span>
+</div>
+
 
           {/* Navigation Links */}
           <nav className={`hidden md:flex space-x-8 ${isMobileMenuOpen ? 'block' : ''}`}>
