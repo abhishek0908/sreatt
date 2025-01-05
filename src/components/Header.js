@@ -73,13 +73,13 @@ const Header = () => {
               About
             </Link>
             <Link
-              to="/services"
+              to="/products"
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
             >
               Products
             </Link>
             <Link
-              to="/warranty"
+              to="/products"
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
             >
               Warranty
