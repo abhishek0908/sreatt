@@ -42,7 +42,7 @@ const HomePage = () => {
         {/* Call to Action */}
         <div className="mt-6">
           <Link
-            to="/services" // Link to Products page where customers can learn more
+            to="/products" // Link to Products page where customers can learn more
             className="bg-green-500 text-white py-2 px-4 rounded-full font-semibold shadow-md hover:bg-green-600 transform hover:scale-105 transition duration-300 sm:py-3 sm:px-6"
           >
             Discover Our Products
