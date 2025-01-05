@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom'; // Importing Link for navigation
-import logo from '../images/logo.jpeg'; // Import the logo image
 
 const HomePage = () => {
+  const [isZoomed, setIsZoomed] = useState(false); // State to handle zoom effect
+  const imageRef = useRef(null); // Reference to the image element
+
+  const handleImageClick = (e) => {
+    e.stopPropagation(); // Prevent the event from propagating to the document
+    setIsZoomed(!isZoomed); // Toggle the zoom state when the image is clicked
+  };
+
+  useEffect(() => {
+    // Handle clicks outside the image to reset zoom
+    const handleClickOutside = (e) => {
+      if (imageRef.current && !imageRef.current.contains(e.target)) {
+        setIsZoomed(false); // Reset zoom if click is outside the image
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-b from-gray-600 via-gray-500 to-gray-300 text-white font-sans">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-b from-gray-600 via-gray-500 to-gray-300 text-white font-sans relative">
       <div className="text-center p-8 space-y-8 max-w-3xl mx-auto">
         {/* Header with gradient theme */}
         <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-gray-400 to-gray-100 text-shadow-md animate__animated animate__fadeIn animate__delay-1s sm:text-5xl md:text-6xl">
@@ -16,27 +39,28 @@ const HomePage = () => {
           High-performance batteries and premium lubricants for every need. Powering your engines and machines with precision.
         </p>
 
-        {/* Image Section */}
-        <div className="mt-12 relative flex justify-center items-center p-4">
+        {/* Image Section (Replacing logo with our_products image) */}
+        <div className="mt-8 w-full max-w-full h-auto">
           <img
-            src={logo}
-            alt="Company Logo"
-            className="w-[140px] h-[140px] rounded-3xl border-2 border-gray-100 shadow-2xl animate__animated animate__bounceIn animate__delay-1s transform hover:scale-105 transition-transform duration-300 ease-in-out sm:w-[180px] sm:h-[180px] md:w-[220px] md:h-[220px]"
-            style={{ objectFit: 'contain' }}
+            src="/media/our_products.jpeg" // Path to the new image
+            alt="Our Products"
+            ref={imageRef} // Assigning the ref to the image
+            className={`w-full h-auto object-contain rounded-xl shadow-xl transition-transform duration-300 ease-in-out ${isZoomed ? 'transform scale-125' : ''}`} // Zoom effect on click
+            onClick={handleImageClick} // Toggle zoom on click
           />
+        </div>
 
-          {/* Green leaf accent */}
-          <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="#4CAF50"
-              viewBox="0 0 24 24"
-              className="w-8 h-8 animate__animated animate__zoomIn animate__delay-2s sm:w-10 sm:h-10 md:w-12 md:h-12"
-            >
-              <path d="M12 2C8.134 2 2 8.134 2 12s6.134 10 10 10 10-6.134 10-10S15.866 2 12 2zm0 18c-3.866 0-8-4.134-8-8s4.134-8 8-8 8 4.134 8 8-4.134 8-8 8z" />
-              <path d="M11 14.071c.586.156 1.2.263 1.836.318.34-.587.775-1.161 1.318-1.736a8.917 8.917 0 0 0 1.847-3.322A6.931 6.931 0 0 0 12 4.937V13a8.014 8.014 0 0 1-.09 1.071z" />
-            </svg>
-          </div>
+        {/* Green leaf accent */}
+        <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#4CAF50"
+            viewBox="0 0 24 24"
+            className="w-8 h-8 animate__animated animate__zoomIn animate__delay-2s sm:w-10 sm:h-10 md:w-12 md:h-12"
+          >
+            <path d="M12 2C8.134 2 2 8.134 2 12s6.134 10 10 10 10-6.134 10-10S15.866 2 12 2zm0 18c-3.866 0-8-4.134-8-8s4.134-8 8-8 8 4.134 8 8-4.134 8-8 8z" />
+            <path d="M11 14.071c.586.156 1.2.263 1.836.318.34-.587.775-1.161 1.318-1.736a8.917 8.917 0 0 0 1.847-3.322A6.931 6.931 0 0 0 12 4.937V13a8.014 8.014 0 0 1-.09 1.071z" />
+          </svg>
         </div>
 
         {/* Call to Action */}
@@ -54,7 +78,6 @@ const HomePage = () => {
           <p>Your trusted source for top-quality batteries and lubricants, designed to keep your machines running smoothly.</p>
         </div>
       </div>
-
     </div>
   );
 };
