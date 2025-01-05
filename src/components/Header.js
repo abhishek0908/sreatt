@@ -79,7 +79,7 @@ const Header = () => {
               Products
             </Link>
             <Link
-              to="/products"
+              to="/warranty"
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
             >
               Warranty
@@ -163,7 +163,7 @@ const Header = () => {
                 About
               </Link>
               <Link
-                to="/services"
+                to="/products"
                 className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
