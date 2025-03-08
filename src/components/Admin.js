@@ -44,7 +44,7 @@ const AdminPage = () => {
           className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600"
           onClick={() => navigate('/admin/products')}
         >
-          Get Products
+          View Products
         </button>
         <button
           className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600"
