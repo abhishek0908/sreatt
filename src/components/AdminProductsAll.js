@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DeleteProduct from "./DeleteProduct"; // Import Delete Component
 
-const ProductList = () => {
+const AdminProductsAll = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // Fetch product data from API
   useEffect(() => {
@@ -16,8 +19,8 @@ const ProductList = () => {
           throw new Error("Failed to fetch products");
         }
         const data = await response.json();
-        console.log(data)
-        setProducts(data.products); // Accessing the 'products' array from API response
+        console.log(data);
+        setProducts(data.products);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -28,8 +31,23 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
+  // Check user authentication & role
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setIsLoggedIn(true);
+      setIsAdmin(user.role === "admin");
+    }
+  }, []);
+
+  // Navigate to product details
   const handleProductSelect = (id) => {
-    navigate(`/products/${id}`); // Navigate to product detail page using product ID
+    navigate(`/products/${id}`);
+  };
+
+  // Remove product from list after successful delete
+  const handleDeleteSuccess = (productId) => {
+    setProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
   };
 
   if (loading) return <p className="text-center text-xl">Loading products...</p>;
@@ -59,16 +77,23 @@ const ProductList = () => {
                 {product.productName}
               </h2>
               <p className="text-gray-500 truncate">{product.productDescription}</p>
-              {/* <p className="font-bold text-lg text-blue-700">₹{product.price}</p> */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevents div click from triggering navigation
-                  handleProductSelect(product._id);
-                }}
-                className="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-lg mt-4 hover:bg-blue-700 transition duration-300"
-              >
-                See Details
-              </button>
+
+              <div className="mt-4 space-y-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleProductSelect(product._id);
+                  }}
+                  className="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition duration-300"
+                >
+                  See Details
+                </button>
+                
+                {/* Show Delete button only for Admin users */}
+                {true && (
+                  <DeleteProduct productId={product._id} onDeleteSuccess={handleDeleteSuccess} />
+                )}
+              </div>
             </div>
           </div>
         ))}
@@ -77,4 +102,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default AdminProductsAll;

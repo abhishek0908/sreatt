@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
   const [distributors, setDistributors] = useState([]); // State to hold distributor list
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
+  const navigate = useNavigate(); // For navigation
 
   useEffect(() => {
     const fetchDistributors = async () => {
@@ -35,6 +37,22 @@ const AdminPage = () => {
   return (
     <main className="flex flex-col items-center w-full px-4 py-8 bg-gradient-to-b from-gray-600 via-gray-500 to-gray-300 text-white font-sans">
       <h2 className="text-3xl font-bold mb-6 text-center">Distributor List</h2>
+
+      {/* Buttons for Products */}
+      <div className="flex gap-4 mb-6">
+        <button
+          className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600"
+          onClick={() => navigate('/admin/products')}
+        >
+          Get Products
+        </button>
+        <button
+          className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600"
+          onClick={() => navigate('/admin/upload')}
+        >
+          Upload Product
+        </button>
+      </div>
 
       {loading && <p className="text-lg text-gray-200">Loading...</p>}
       {error && <p className="text-lg text-red-500">{error}</p>}

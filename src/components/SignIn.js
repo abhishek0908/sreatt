@@ -24,7 +24,7 @@ const SignIn = () => {
       });
   
       const data = await response.json();
-  
+      console.log(data.token)
       if (response.ok) {
         setMessage("Sign-in successful!");
         setMessageType("success");

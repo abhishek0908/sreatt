@@ -64,6 +64,12 @@ const Header = () => {
 
           {/* Navigation Links */}
           <nav className={`hidden md:flex space-x-8 ${isMobileMenuOpen ? 'block' : ''}`}>
+          {userRole === 'admin' && ( <Link
+              to="/admin"
+              className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
+            >
+              Admin Panel
+            </Link>)}
             <Link
               to="/"
               className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
@@ -152,6 +158,15 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden absolute left-0 right-0 top-20 bg-gradient-to-r from-gray-600 via-gray-400 to-gray-300 p-4">
             <div className="flex flex-col items-center space-y-4">
+            {userRole === 'admin' && (
+  <Link
+    to="/admin"
+    className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
+    onClick={() => setIsMobileMenuOpen(false)}
+  >
+    Admin Panel
+  </Link>
+)}
               <Link
                 to="/"
                 className="text-white text-lg font-medium hover:text-green-400 hover:scale-105 transform transition duration-300"
