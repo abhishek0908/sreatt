@@ -23,6 +23,8 @@ import ProductList from './components/ProductList';
 import Loader from './components/Loader';
 import ProductUploadForm from './components/ProductUploadForm';
 import AdminProductsAll from './components/AdminProductsAll';
+import WarrantyDetails from './components/WarrantyDeatails';
+import DistributorList from './components/DistributorList';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -69,8 +71,11 @@ function App() {
               <Route path="/products" element={<ProductList />} />
               <Route path="/products/:productId" element={<ProductDetails />} />
               <Route path="*" element={<NotFoundPage />} />
-              <Route path="/admin/upload" element={<ProductUploadForm />} />
               <Route path="/admin/products" element={<AdminProductsAll />} />
+<Route path="/admin/upload" element={<ProductUploadForm />} />
+<Route path="/admin/warranties" element={<WarrantyDetails />} />
+<Route path="/admin/distributors" element={<DistributorList />} />
+
 
             </Routes>
             <Footer />
