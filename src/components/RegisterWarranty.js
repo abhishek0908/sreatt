@@ -18,7 +18,7 @@ const RegisterWarranty = () => {
     customerMobileNumber: "",
     vehicleType: "",
     batteryModelNumber: "",
-    BatterySerialNumber: "",
+    batterySerialNumber: "",
     dateOfPurchase: "",
   });
 
@@ -82,7 +82,7 @@ const RegisterWarranty = () => {
         customerMobileNumber: "",
         vehicleType: "",
         batteryModelNumber: "",
-        BatterySerialNumber: "",
+        batterySerialNumber: "",
         dateOfPurchase: "",
       });
     } catch (error) {
@@ -249,23 +249,23 @@ const RegisterWarranty = () => {
 
           {/* Battery Serial Number */}
           <div>
-            <label htmlFor="BatterySerialNumber" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="batterySerialNumber" className="block text-sm font-medium text-gray-700">
               Battery Serial Number
             </label>
             <input
               type="text"
-              id="BatterySerialNumber"
-              name="BatterySerialNumber"
-              value={formData.BatterySerialNumber}
+              id="batterySerialNumber"
+              name="batterySerialNumber"
+              value={formData.batterySerialNumber}
               onChange={handleChange}
               placeholder="Enter battery serial number"
               className={`mt-1 block w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 ${
-                errors.BatterySerialNumber ? "border-red-500" : "border-gray-300"
+                errors.batterySerialNumber ? "border-red-500" : "border-gray-300"
               }`}
               required
             />
-            {errors.BatterySerialNumber && (
-              <p className="mt-1 text-sm text-red-600">{errors.BatterySerialNumber}</p>
+            {errors.batterySerialNumber && (
+              <p className="mt-1 text-sm text-red-600">{errors.batterySerialNumber}</p>
             )}
           </div>
 
